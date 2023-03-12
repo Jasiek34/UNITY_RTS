@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: -8741697427354605488}
   - component: {fileID: 8981506557343777297}
   m_Layer: 0
-  m_Name: unit
+  m_Name: unitPrefab
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

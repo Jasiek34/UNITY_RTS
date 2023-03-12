@@ -7,13 +7,27 @@ using Assets.Scripts.Utils;
 
 public class UnitManager : MonoBehaviour
 {
-    
 
+    private static UnitManager _instance;
+    public static UnitManager Instance { get { return _instance; } }
 
     private Vector2 pozycjaMyszy;
     private List<Unit> selectedUnitsList;
+    public List<Unit> SelectedUnitsList { get { return selectedUnitsList; } }
 
-    
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
+
 
     // Start is called before the first frame update
     void Start()

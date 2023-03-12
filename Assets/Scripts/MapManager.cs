@@ -14,8 +14,8 @@ namespace Assets.Scripts
         public GameObject overlayPrefab;
         public GameObject overlayContainer;
 
-        public Dictionary<Vector2Int, GameObject> map;
-        public bool ignoreBottomTiles;
+        public Dictionary<Vector2Int, OverlayTile> map;
+        
 
         private void Awake()
         {
@@ -32,20 +32,20 @@ namespace Assets.Scripts
         // Start is called before the first frame update
         void Start()
         {
+            
             var tileMap = gameObject.GetComponentInChildren<Tilemap>();
-            map = new Dictionary<Vector2Int, GameObject>();
+            map = new Dictionary<Vector2Int, OverlayTile>();
 
             BoundsInt bounds = tileMap.cellBounds;
-
-            for (int z = bounds.max.z; z >= bounds.min.z; z--)
+           
+            for (int z = bounds.min.z; z >= bounds.min.z; z--)
             {
                 for (int y = bounds.min.y; y < bounds.max.y; y++)
                 {
+                    
                     for (int x = bounds.min.x; x < bounds.max.x; x++)
                     {
-                        if (z == 0 && ignoreBottomTiles)
-                            return;
-
+                        
                         var tileLocation = new Vector3Int(x, y, z);
                         var tileKey = new Vector2Int(x, y);
                         if (tileMap.HasTile(tileLocation) && !map.ContainsKey(tileKey))
@@ -54,11 +54,17 @@ namespace Assets.Scripts
                             var cellWorldPosition = tileMap.GetCellCenterWorld(tileLocation);
                             overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z + 1);
                             overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tileMap.GetComponent<TilemapRenderer>().sortingOrder;
-                            map.Add(tileKey, overlayTile);
+                            overlayTile.gameObject.GetComponent<OverlayTile>().gridLocation = tileLocation;
+                            map.Add(new Vector2Int(x, y), overlayTile.gameObject.GetComponent<OverlayTile>());
                         }
+                        
                     }
                 }
             }
+            /*foreach (OverlayTile o in map.Values)
+            {
+                Debug.Log(o.gridLocation.ToString());
+            }*/
         }
     }
 }
