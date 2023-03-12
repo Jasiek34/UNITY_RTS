@@ -286,13 +286,13 @@ MonoBehaviour:
     mode: 2
     interval: 0.5
     sensitivity: 12
-    maximumInterval: 0.3
+    maximumInterval: 0.1
     visualizeSensitivity: 0
   targetCompatibility: {fileID: 0}
-  maxAcceleration: 3
+  maxAcceleration: 100
   rotationSpeed: 360
-  slowdownDistance: 0.6
-  pickNextWaypointDist: 0.88
+  slowdownDistance: 0.52
+  pickNextWaypointDist: 0.35
   endReachedDistance: 0.2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
